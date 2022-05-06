@@ -33,7 +33,34 @@ namespace olimp
             {
                 isUser = false;
             }
-
-        }   
+        } 
+        public void addEmployes(string surname, string name, string lastname, string numphon, string bank, string salary, string sex, string passpd, string INN, string dolj )
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string sqlExpression = $"INSERT INTO Сотрудники (Фамилия, Имя, Отчество) VALUES ('{surname}', '{name}', '{lastname}')";
+                string sqlExpression2 = $"INSERT INTO [Информация о сотрудниках] ([Номер телефона],[Банковский счет],[Заработная плата], Пол, [Паспортные данные], ИНН, Должность) VALUES ({numphon}, {bank}, {salary}, '{sex}', {passpd}, {INN}, '{dolj}')";
+                SqlCommand sqlCommand1 = new SqlCommand(sqlExpression, connection);
+                SqlCommand sqlCommand2 = new SqlCommand(sqlExpression2, connection);
+                sqlCommand1.ExecuteNonQuery();
+                sqlCommand2.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+        public void addClients(string surname, string name, string lastname, string numphon, string numkard)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string sqlExpression = $"INSERT INTO Клиенты (Фамилия, Имя, Отчество) VALUES ('{surname}', '{name}', '{lastname}')";
+                string sqlExpression2 = $"INSERT INTO [Информация о клиентах] ([Номер телефона],[Номер бонусной карты], [Табельный номер]) VALUES ('{numphon}', '{numkard}', 1)";
+                SqlCommand sqlCommand1 = new SqlCommand(sqlExpression, connection);
+                SqlCommand sqlCommand2 = new SqlCommand(sqlExpression2, connection);
+                sqlCommand1.ExecuteNonQuery();
+                sqlCommand2.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
     }
 }
